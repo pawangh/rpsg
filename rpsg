@@ -5,24 +5,41 @@ screen = tkinter.Tk()
 
 screen.geometry("400x400")
 
-cc = ["rock","paper","scissor"]
+cc = ["rock","paper","scissors"]
+pscore = 0 
+cscore = 0 
 
 def activation(pchoice):
+    global pscore
+    global cscore
     cslect=random.randint(0,2)
     cchoice=cc[cslect]
+    if cchoice == pchoice:
+        tkinter.messagebox.showinfo("rpsg","DRAW!")
+    if pchoice == "rock" and cchoice == "scissors" or pchoice == "paper" and cchoice == "rock" or pchoice == "scissor" and cchoice == "paper":
+        tkinter.messagebox.showinfo("rspg","player wins")
+        pscore = pscore + 1
+        
+    
+    if cchoice == "rock" and pchoice == "scissors" or cchoice == "paper" and pchoice == "rock" or cchoice == "scissor" and pchoice == "paper":
+        tkinter.messagebox.showinfo("rspg","computer wins")
+        cscore = cscore + 1
+    
     po.config(text="your option :"+pchoice)
     co.config(text="computer option :"+cchoice)
+    ps.config(text="your score is:"+str(pscore))
+    cs.config(text="computer score is:"+str(cscore))
 
 rb = tkinter.Button(screen,text="rock",command=lambda:activation("rock"))
 pb = tkinter.Button(screen,text="paper",command=lambda:activation("paper"))
-sb = tkinter.Button(screen,text="scissors",command=lambda:activation("sissors"))
+sb = tkinter.Button(screen,text="scissors",command=lambda:activation("scissors"))
 title = tkinter.Label(screen,text="rock paper scissors")
 options = tkinter.Label(screen,text="options")
 stats = tkinter.Label(screen,text="stats")
 po = tkinter.Label(screen,text="your option:")
 co = tkinter.Label(screen,text="computer option:")
-cs = tkinter.Label(screen,text="computer score:")
-ps = tkinter.Label(screen,text="your score:")
+cs = tkinter.Label(screen,text="computer score:"+str(pscore))
+ps = tkinter.Label(screen,text="your score:"+str(pscore))
 
 rb.grid(row = 3,column=1)
 pb.grid(row = 3,column=2)
@@ -34,6 +51,5 @@ po.grid(row = 5,column=1)
 co.grid(row = 6,column=1)
 cs.grid(row = 6,column=2)
 ps.grid(row = 5,column=2)
-
 
 screen.mainloop()
